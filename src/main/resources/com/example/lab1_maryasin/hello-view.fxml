@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="678.0" maxWidth="661.0" minHeight="678.0" minWidth="661.0" prefHeight="678.0" prefWidth="661.0"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.lab1_maryasin.HelloController">
+   <children>
+      <Button fx:id="startButton" layoutX="578.0" layoutY="339.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="Старт" />
+      <Button fx:id="exitButton" layoutX="578.0" layoutY="631.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="Выход" />
+      <ComboBox fx:id="relayType" layoutX="411.0" layoutY="49.0" prefHeight="25.0" prefWidth="203.0" promptText="Идеальный ПИД-регулятор" />
+      <Label layoutX="14.0" layoutY="23.0" text="Параметры:" />
+      <Label layoutX="411.0" layoutY="23.0" text="Вид регулятора:" />
+      <Label layoutX="14.0" layoutY="53.0" text="Ka:" />
+      <Label layoutX="14.0" layoutY="107.0" text="Ti:" />
+      <Label layoutX="14.0" layoutY="166.0" text="Td:" />
+      <TextField fx:id="kaField" layoutX="39.0" layoutY="49.0" />
+      <TextField fx:id="tiField" layoutX="39.0" layoutY="103.0" />
+      <TextField fx:id="tdField" layoutX="39.0" layoutY="162.0" />
+      <Label layoutX="14.0" layoutY="206.0" text="Ограничение на управление:" />
+      <Label layoutX="11.0" layoutY="239.0" text="min:" />
+      <Label layoutX="98.0" layoutY="239.0" text="max:" />
+      <TextField fx:id="minControl" layoutX="39.0" layoutY="235.0" prefHeight="25.0" prefWidth="50.0" />
+      <TextField fx:id="maxControl" layoutX="126.0" layoutY="235.0" prefHeight="25.0" prefWidth="50.0" />
+      <Label layoutX="12.0" layoutY="276.0" text="Ограничение на производную:" />
+      <Label layoutX="14.0" layoutY="310.0" text="max:" />
+      <TextField fx:id="maxProiz" layoutX="42.0" layoutY="306.0" prefHeight="25.0" prefWidth="50.0" />
+      <ListView fx:id="tableResults" layoutX="14.0" layoutY="339.0" prefHeight="316.0" prefWidth="559.0" />
+   </children>
+</AnchorPane>
