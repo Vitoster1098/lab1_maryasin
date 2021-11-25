@@ -32,7 +32,7 @@ public class PIDregulator {
     public double getOutput(double actual, double setpoint){
         double output, Poutput, Doutput, Ioutput;
         double error = setpoint - actual;
-        Poutput = error;
+        Poutput = error * P;
         if (Bounded(lastOutput, minOutput, maxOutput)){
             errorSum += error;
             maxError = errorSum;
