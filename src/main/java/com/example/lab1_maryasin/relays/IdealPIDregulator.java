@@ -3,9 +3,8 @@ package com.example.lab1_maryasin.relays;
 //Идеальный
 public class IdealPIDregulator {
     private double P = 10, D = 0.2, I = 1;
-    private double setpoint = 0, lastActual = 0, maxOutput = 0, minOutput = 0, errorSum = 0, maxError = 0, lastOutput = 0, maxOutputRampRate = 0;
-    private boolean firstRun =true;
-    public IdealPIDregulator(double p, double i, double d){
+    private double setpoint = 0, eastActual = 0, maxOutput = 0, minOutput = 0, errorSum = 0, maxError = 0, lastOutput = 0, maxOutputRampRate = 0;
+    public PIDRegIntSB(double p, double i, double d){
         P = p;
         D = d;
         I = i;
@@ -27,19 +26,12 @@ public class IdealPIDregulator {
         maxOutput = maximum;
         minOutput = minimum;
     }
-    public void setMaxOutputRampRate(double rate){
+    public void SetMaxOutputRampRate(double rate){
         maxOutputRampRate = rate;
     }
     public double getOutput(double actual, double setpoint){
         double output, Poutput, Doutput, Ioutput;
         double error = setpoint - actual;
-
-        if(firstRun){
-            errorSum =0;
-            lastActual = actual;
-            firstRun = false;
-        }
-
         Poutput = error;
         if (Bounded(lastOutput, minOutput, maxOutput)){
             errorSum += error;
@@ -49,12 +41,12 @@ public class IdealPIDregulator {
             errorSum = maxError;
         }
         Ioutput = I * errorSum;
-        Doutput = D * (actual - lastActual);
-        lastActual = actual;
+        Doutput = D * (actual - eastActual);
+        eastActual = actual;
         output = P * (Poutput + Doutput + Ioutput);
         output = constrain(output, minOutput, maxOutput);
         if (maxOutputRampRate != 0){
-            output = constrain(output - lastOutput, lastActual - maxOutputRampRate, lastActual + maxOutputRampRate);
+            output = constrain(output - lastOutput, eastActual - maxOutputRampRate, eastActual + maxOutputRampRate);
         }
         lastOutput = output;
         return output;
