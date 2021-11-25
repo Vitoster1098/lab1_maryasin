@@ -4,7 +4,7 @@ package com.example.lab1_maryasin.relays;
 public class IdealPIDregulator {
     private double P = 10, D = 0.2, I = 1;
     private double setpoint = 0, eastActual = 0, maxOutput = 0, minOutput = 0, errorSum = 0, maxError = 0, lastOutput = 0, maxOutputRampRate = 0;
-    public PIDRegIntSB(double p, double i, double d){
+    public IdealPIDregulator(double p, double i, double d){
         P = p;
         D = d;
         I = i;
@@ -26,7 +26,7 @@ public class IdealPIDregulator {
         maxOutput = maximum;
         minOutput = minimum;
     }
-    public void SetMaxOutputRampRate(double rate){
+    public void setMaxOutputRampRate(double rate){
         maxOutputRampRate = rate;
     }
     public double getOutput(double actual, double setpoint){

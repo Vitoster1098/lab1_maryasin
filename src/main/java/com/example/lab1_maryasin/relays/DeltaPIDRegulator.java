@@ -2,9 +2,9 @@ package com.example.lab1_maryasin.relays;
 
 //Рекурсивный
 public class DeltaPIDRegulator {
-    double p;
-    double ti;
-    double td;
+    double p = 10;
+    double ti = 1;
+    double td = 0.2;
     double dt;
 
     double minOutput;
