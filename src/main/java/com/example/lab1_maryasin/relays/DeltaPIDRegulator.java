@@ -1,6 +1,6 @@
 package com.example.lab1_maryasin.relays;
 
-//Рекурсивный
+//Рекуррентный
 public class DeltaPIDRegulator {
     double p = 10;
     double ti = 1;
