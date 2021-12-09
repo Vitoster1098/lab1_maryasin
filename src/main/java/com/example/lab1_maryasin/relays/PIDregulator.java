@@ -59,5 +59,4 @@ public class PIDregulator {
     private boolean Bounded(double value, double min, double max){
         return (min < value) && (max > value);
     }
-
 }

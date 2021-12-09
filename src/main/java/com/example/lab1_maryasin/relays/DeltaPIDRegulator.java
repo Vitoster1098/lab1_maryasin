@@ -1,45 +1,78 @@
 package com.example.lab1_maryasin.relays;
 
-//Рекуррентный
+//Рекурсивный
 public class DeltaPIDRegulator {
-    double p = 10;
-    double ti = 1;
-    double td = 0.2;
-    double dt;
+    private double P=0,I=0, D=0,Dt=0, maxOutput=3,minOutput=-3, errorSum=0,lastActual=0;
+    private double setpoint=0;
+    private double maxError=0;
+    private double last0=0;
+    private double last2Error=0;
+    private double lastError=0;
+    private double lastOutput=0;
+    private double maxOutputRampRate=0;
+    private boolean firstRun=true;
 
-    double minOutput;
-    double maxOutput;
-    double maxOutputRampRate;
-
-    public DeltaPIDRegulator(double p, double ti, double td, double dt){
-        this.p = p;
-        this.ti = ti;
-        this.td = td;
-        this.dt = dt;
+    public DeltaPIDRegulator (double p, double i, double d, double dt){
+        P=p;
+        I=i;
+        D=d;
+        Dt=dt;
     }
 
-    public void setOutputLimits(double minOutput, double maxOutput){
-        this.minOutput = minOutput;
-        this.maxOutput = maxOutput;
+    public void setP (double p){
+        P=p;
     }
 
-    public void setMaxOutputRampRate(double maxOutputRampRate){
-        this.maxOutputRampRate = maxOutputRampRate;
+    public void setI (double i){
+        I=i;
     }
 
-    public double getOutput(double y1, double r) {
-        double output;
-        double deadzone = 0.2;
-        double error = r - y1;
-        if (error >= deadzone){
-            output = 2;
+    public void setD (double d){
+        D=d;
+    }
+
+    public void setdt (double dt){
+        Dt=dt;
+    }
+
+    public void setSetpoint(double setpoint){
+        this.setpoint=setpoint;
+    }
+
+    public void setOutputLimits(double minimum, double maximum){
+        if(maximum<minimum)return;
+        maxOutput=maximum;
+        minOutput=minimum;
+    }
+
+    public double constrain (double value,double min, double max){
+        if(value>max)return max;
+        if(value<min)return min;
+        return value;
+    }
+
+    private boolean bounded(double value, double min, double max){
+        return (min < value) && (value < max);
+    }
+
+    public double getOutput (double actual, double setpoint){
+        double output, q0,q1,q2;
+        double error=setpoint-actual;
+        q0=P+I*Dt+D/Dt;
+        q1=-P-2*D/Dt;
+        q2=D/Dt;
+        output=q0*error+q1*lastError*q2*last2Error;
+        output=constrain(output, minOutput, maxOutput);
+        if (maxOutputRampRate!=0){
+            output=constrain (output,lastOutput-maxOutputRampRate, lastOutput+maxOutputRampRate);
         }
-        else if ((error >= -deadzone) && (error <= deadzone)) {
-            output = 0;
-        }
-        else {
-            output = -2;
-        }
+        last2Error=lastError;
+        lastError=error;
+        lastOutput=output;
         return output;
+    }
+
+    public void setMaxOutputRampRate(double rate){
+        maxOutputRampRate=rate;
     }
 }

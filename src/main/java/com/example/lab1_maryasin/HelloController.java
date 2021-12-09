@@ -117,7 +117,6 @@ public class HelloController {
             double y = 0;
             double y1 = 0;
             double u = 1.8;
-            double du = 1;
             double T = 1.0;
 
             System.out.printf("Target\tOutput\tControl\tError\n");
@@ -142,7 +141,8 @@ public class HelloController {
                 y = y1;
                 System.out.printf("%3.2f\t%3.2f\t%3.2f\t%3.2f\n", r, y1, u, (r - y1));
                 DecimalFormat df = new DecimalFormat("##.##");
-                String str = df.format(r) + "\t" + df.format(y1) + "\t" + df.format(u) + "\t" + df.format(r - y1) + "\n";
+                double sub = r - y1;
+                String str = df.format(r) + "\t" + df.format(y1) + "\t" + df.format(u) + "\t" + df.format(sub) + "\n";
                 tableResults.appendText(str);
             }
 
