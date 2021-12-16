@@ -10,7 +10,6 @@ public class DeltaPIDRegulator {
     private double lastError=0;
     private double lastOutput=0;
     private double maxOutputRampRate=0;
-    private boolean firstRun=true;
 
     public DeltaPIDRegulator (double p, double i, double d, double dt){
         P=p;

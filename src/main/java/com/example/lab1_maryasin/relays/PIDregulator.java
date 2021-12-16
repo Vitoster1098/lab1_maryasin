@@ -1,9 +1,12 @@
 package com.example.lab1_maryasin.relays;
 
+import java.util.TreeMap;
+
 //Параллельный
 public class PIDregulator {
     private double P = 10, D = 0.2, I = 1;
     private double setpoint = 0, eastActual = 0, maxOutput = 0, minOutput = 0, errorSum = 0, maxError = 0, lastOutput = 0, maxOutputRampRate = 0;
+    private boolean firstrun = true;
     public PIDregulator(double p, double i, double d){
         P = p;
         D = d;
@@ -33,6 +36,12 @@ public class PIDregulator {
         double output, Poutput, Doutput, Ioutput;
         double error = setpoint - actual;
         Poutput = error * P;
+        if(firstrun){
+            errorSum = 0;
+            eastActual = actual;
+            lastOutput = Poutput;
+            firstrun = false;
+        }
         if (Bounded(lastOutput, minOutput, maxOutput)){
             errorSum += error;
             maxError = errorSum;
@@ -43,7 +52,7 @@ public class PIDregulator {
         Ioutput = I * errorSum;
         Doutput = D * (actual - eastActual);
         eastActual = actual;
-        output = P * (Poutput + Doutput + Ioutput);
+        output = Poutput + Doutput + Ioutput;
         output = constrain(output, minOutput, maxOutput);
         if (maxOutputRampRate != 0){
             output = constrain(output - lastOutput, eastActual - maxOutputRampRate, eastActual + maxOutputRampRate);
